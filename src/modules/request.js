@@ -1,42 +1,21 @@
-import { validateText, validatePhone, validateEmail } from './validate';
+import { replaceInvalidText, replaceInvalidPhone, replaceInvalidEmail } from './replace';
 
 const request = () => {
   const form1 = document.getElementById('form1');
   const nameInput = form1.querySelector('#form1-name');
   const emailInput = form1.querySelector('#form1-email');
   const phoneInput = form1.querySelector('#form1-phone');
-  const formBtn = form1.querySelector('.form-btn');
 
-  formBtn.addEventListener('click', (e) => {
-    e.preventDefault();
-    let isError = false;
+  nameInput.addEventListener('input', (e) => {
+    e.target.value = replaceInvalidText(e.target.value);
+  });
 
-    if (nameInput.value === '' || phoneInput.value === '' || emailInput.value === '') {
-      alert('Необходимо заполнить все поля!');
-      return;
-    }
+  phoneInput.addEventListener('input', (e) => {
+    e.target.value = replaceInvalidPhone(e.target.value);
+  });
 
-    if (!validateText(nameInput.value)) {
-      isError = true;
-      alert('В поле Имя можно ввести только кириллицу, дефис или пробел');
-    }
-
-    if (!validateEmail(emailInput.value)) {
-      isError = true;
-      alert('Введите корректный E-mail');
-    }
-
-    if (!validatePhone(phoneInput.value)) {
-      isError = true;
-      alert('Введите корректный номер телефона');
-    }
-
-    if (!isError) {
-      alert('Данные отправлены');
-      nameInput.value = '';
-      phoneInput.value = '';
-      emailInput.value = '';
-    }
+  emailInput.addEventListener('input', (e) => {
+    e.target.value = replaceInvalidEmail(e.target.value);
   });
 };
 
