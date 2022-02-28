@@ -6,10 +6,10 @@ const toggleMenu = () => {
     menu.classList.toggle('active-menu');
   };
 
-  menuBtn.addEventListener('click', handleMenu);
-
-  menu.addEventListener('click', (e) => {
-    if (e.target.classList.contains('close-btn') || e.target.matches('a')) {
+  document.addEventListener('click', (e) => {
+    if (e.target.classList.contains('close-btn') || e.target.matches('a') || e.target.closest('.menu')) {
+      handleMenu();
+    } else if (menu.classList.contains('active-menu') && !e.target.closest('.active-menu')) {
       handleMenu();
     }
   });
