@@ -7,7 +7,7 @@ const toggleMenu = () => {
   };
 
   document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('close-btn') || e.target.matches('a') || e.target.closest('.menu')) {
+    if (e.target.classList.contains('close-btn') || e.target.matches('.active-menu ul>li>a') || e.target.closest('.menu')) {
       handleMenu();
     } else if (menu.classList.contains('active-menu') && !e.target.closest('.active-menu')) {
       handleMenu();
