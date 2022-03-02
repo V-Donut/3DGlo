@@ -14,4 +14,14 @@ calc();
 questions();
 request();
 tabs();
-slider();
+slider({
+  slider: '.portfolio-content',
+  slide: '.portfolio-item',
+  dotsList: '.portfolio-dots',
+  dot: '.dot',
+  arrows: '.portfolio-btn',
+  prev: '.prev',
+  next: '.next',
+  slideActive: '.portfolio-item-active',
+  dotActive: '.dot-active'
+});

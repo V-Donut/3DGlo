@@ -1,42 +1,59 @@
-const slider = () => {
-  const sliderBlock = document.querySelector('.portfolio-content');
-  const slides = document.querySelectorAll('.portfolio-item');
-  const portfolioDots = document.querySelector('.portfolio-dots');
+const slider = (selectors) => {
+  const {
+    slider,
+    slide,
+    dotsList,
+    dot,
+    arrows,
+    prev,
+    next,
+    slideActive = '.slide-active',
+    dotActive = '.dot-active'
+  } = selectors;
+
+  const sliderBlock = document.querySelector(slider);
+  const slides = document.querySelectorAll(slide);
+  const portfolioDots = document.querySelector(dotsList);
   const timeInterval = 2000;
+
+  if (!sliderBlock || !slides.length) {
+    return;
+  }
 
   let dots;
   let currentSlide = 0;
   let interval;
 
   const addDots = (dotsCount) => {
+    const dotClass = dot.replace('.', '');
     for (let i = 0; i < dotsCount; i++) {
-      let elem = document.createElement('li');
-      elem.className = (i === 0) ? 'dot dot-active' : 'dot';
-      portfolioDots.append(elem);
+      let newElem = document.createElement('li');
+      newElem.className = (i === 0) ? (dotClass + ' ' + dotActive) : dotClass;
+      portfolioDots.append(newElem);
     }
-    dots = document.querySelectorAll('.dot');
+    dots = document.querySelectorAll(dot);
   };
 
   addDots(slides.length);
 
   const prevSlide = (elems, index, strClass) => {
-    elems[index].classList.remove(strClass);
+    elems[index].classList.remove(strClass.replace('.', ''));
   };
 
   const nextSlide = (elems, index, strClass) => {
-    elems[index].classList.add(strClass);
+    elems[index].classList.add(strClass.replace('.', ''));
   };
 
   const autoSlide = () => {
-    prevSlide(slides, currentSlide, 'portfolio-item-active');
-    prevSlide(dots, currentSlide, 'dot-active');
+    prevSlide(slides, currentSlide, slideActive);
+    prevSlide(dots, currentSlide, dotActive);
     currentSlide++;
 
     if (currentSlide >= slides.length) {
       currentSlide = 0;
     }
-    nextSlide(slides, currentSlide, 'portfolio-item-active');
-    nextSlide(dots, currentSlide, 'dot-active');
+    nextSlide(slides, currentSlide, slideActive);
+    nextSlide(dots, currentSlide, dotActive);
   };
 
   const startSlide = (timer = 1500) => {
@@ -50,20 +67,20 @@ const slider = () => {
   sliderBlock.addEventListener('click', (e) => {
     e.preventDefault();
 
-    if (!e.target.matches('.dot, .portfolio-btn')) {
+    if (!e.target.matches(dot + ', ' + arrows)) {
       return;
     }
 
-    prevSlide(slides, currentSlide, 'portfolio-item-active');
-    prevSlide(dots, currentSlide, 'dot-active');
+    prevSlide(slides, currentSlide, slideActive);
+    prevSlide(dots, currentSlide, dotActive);
 
-    if (e.target.matches('#arrow-right')) {
+    if (e.target.matches(next)) {
       currentSlide++;
-    } else if (e.target.matches('#arrow-left')) {
+    } else if (e.target.matches(prev)) {
       currentSlide--;
-    } else if (e.target.classList.contains('dot')) {
-      dots.forEach((dot, index) => {
-        if (e.target === dot) {
+    } else if (e.target.classList.contains(dot.replace('.', ''))) {
+      dots.forEach((item, index) => {
+        if (e.target === item) {
           currentSlide = index;
         }
       });
@@ -77,18 +94,18 @@ const slider = () => {
       currentSlide = slides.length - 1;
     }
 
-    nextSlide(slides, currentSlide, 'portfolio-item-active');
-    nextSlide(dots, currentSlide, 'dot-active');
+    nextSlide(slides, currentSlide, slideActive);
+    nextSlide(dots, currentSlide, dotActive);
   });
 
   sliderBlock.addEventListener('mouseenter', (e) => {
-    if (e.target.matches('.dot, .portfolio-btn')) {
+    if (e.target.matches(dot + ', ' + arrows)) {
       stopSlide();
     }
   }, true);
 
   sliderBlock.addEventListener('mouseleave', (e) => {
-    if (e.target.matches('.dot, .portfolio-btn')) {
+    if (e.target.matches(dot + ', ' + arrows)) {
       startSlide(timeInterval);
     }
   }, true);
