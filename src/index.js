@@ -5,6 +5,7 @@ import calc from './modules/calc';
 import questions from './modules/questions';
 import request from './modules/request';
 import tabs from './modules/tabs';
+import slider from './modules/slider';
 
 timer('16 april 2022');
 toggleMenu();
@@ -13,3 +14,4 @@ calc();
 questions();
 request();
 tabs();
+slider();

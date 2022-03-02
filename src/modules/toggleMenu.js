@@ -1,5 +1,4 @@
 const toggleMenu = () => {
-  const menuBtn = document.querySelector('.menu');
   const menu = document.querySelector('menu');
 
   const handleMenu = () => {
