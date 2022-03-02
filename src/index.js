@@ -1,13 +1,15 @@
 import timer from './modules/timer';
-import menu from './modules/menu';
+import toggleMenu from './modules/toggleMenu';
 import modal from './modules/modal';
 import calc from './modules/calc';
 import questions from './modules/questions';
 import request from './modules/request';
+import tabs from './modules/tabs';
 
-timer('28 february 2022');
-menu();
+timer('16 april 2022');
+toggleMenu();
 modal();
 calc();
 questions();
 request();
+tabs();
