@@ -10,7 +10,7 @@ import slider from './modules/slider';
 timer('16 april 2022');
 toggleMenu();
 modal();
-calc();
+calc(100);
 questions();
 request();
 tabs();
