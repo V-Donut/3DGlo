@@ -31,11 +31,7 @@ const calc = (price = 100) => {
     } else {
       totalValue = 0;
     }
-
-    if (totalValue === 0) {
-      return;
-    }
-
+    
     animate({
       duration: 500,
       timing(timeFraction) {
