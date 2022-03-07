@@ -1,4 +1,5 @@
 import { replaceInvalidText, replaceInvalidPhone, replaceInvalidEmail } from './replace';
+import { animate } from './helpers';
 
 const modal = () => {
   const modal = document.querySelector('.popup');
@@ -10,19 +11,7 @@ const modal = () => {
   const phoneInput = modal.querySelector('#form3-phone');
   const emailInput = modal.querySelector('#form3-email');
   
-  let idInterval;
-  let counter = -30;
   let clientWidth = document.documentElement.clientWidth;
-
-  const animateModal = () => {
-    idInterval = requestAnimationFrame(animateModal);
-    if (counter <= 10) {
-      counter++;
-      popupContent.style.top = counter + '%';
-    } else {
-      cancelAnimationFrame(idInterval);
-    }
-  };
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -32,7 +21,15 @@ const modal = () => {
       modal.style.display = 'block';
 
       if (clientWidth >= mobileWidth) {
-        animateModal();
+        animate({
+          duration: 500,
+          timing(timeFraction) {
+            return timeFraction;
+          },
+          draw(progress) {
+            popupContent.style.top = (progress * 10) + '%';
+          }
+        });
       }
     });
   });
@@ -40,7 +37,6 @@ const modal = () => {
   modal.addEventListener('click', (e) => {
     if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
       modal.style.display = 'none';
-      counter = -30;
     }
   });
 
