@@ -1,4 +1,3 @@
-import { replaceInvalidText, replaceInvalidPhone, replaceInvalidEmail } from './replace';
 import { animate } from './helpers';
 
 const modal = () => {
@@ -38,18 +37,6 @@ const modal = () => {
     if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
       modal.style.display = 'none';
     }
-  });
-
-  nameInput.addEventListener('input', (e) => {
-    e.target.value = replaceInvalidText(e.target.value);
-  });
-
-  phoneInput.addEventListener('input', (e) => {
-    e.target.value = replaceInvalidPhone(e.target.value);
-  });
-
-  emailInput.addEventListener('input', (e) => {
-    e.target.value = replaceInvalidEmail(e.target.value);
   });
 };
 
