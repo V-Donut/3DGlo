@@ -1,3 +1,5 @@
+import { regExpName, regExpPhone, regExpEmail, regExpMessage } from './replace.js';
+
 const sendForm = ({ formId, someElem = [] }) => {
   const form = document.getElementById(formId);
   const statusBlock = document.createElement('div');
@@ -9,11 +11,20 @@ const sendForm = ({ formId, someElem = [] }) => {
   const validate = (list) => {
     let success = true;
 
-    //list.forEach(input => {
-      //if (!input.classList.contains('success')) {
-        //success = false;
-      //}
-    //});
+    list.forEach(input => {
+      const attribute = input.getAttribute('name').replace('user_', '');
+      const value = input.value;
+
+      if (attribute === 'name' && value.match(regExpName) !== null) {
+        success = false;
+      } else if (attribute === 'phone' && value.match(regExpPhone) !== null) {
+        success = false;
+      } else if (attribute === 'email' && value.match(regExpEmail) !== null) {
+        success = false;
+      } else if (attribute === 'message' && value.match(regExpMessage) !== null) {
+        success = false;
+      }
+    });
 
     return success;
   };
@@ -63,13 +74,14 @@ const sendForm = ({ formId, someElem = [] }) => {
           statusBlock.textContent = errorText;
         });
     } else {
+      statusBlock.textContent = '';
       alert('Данные не валидны!');
     }
   };
 
   try {
     if (!form) {
-      throw new Error('Верните форму на место!')
+      throw new Error('Верните форму на место!');
     }
 
     form.addEventListener('submit', (e) => {

@@ -1,3 +1,15 @@
+const regExpName = /[^а-яА-Я\s]+/g;
+const regExpPhone = /[^+\d-\(\)]+/g;
+const regExpEmail = /[^a-zA-Z0-9-_@\.!~\*']+/g;
+const regExpMessage = /[^а-яА-Я0-9-\.,!\?:;\(\)«»"\s]+/g;
+
+export {
+  regExpName,
+  regExpPhone,
+  regExpEmail,
+  regExpMessage
+};
+
 const replace = () => {
   const nameFields = document.getElementsByName('user_name');
   const emailFields = document.getElementsByName('user_email');
@@ -5,19 +17,19 @@ const replace = () => {
   const messageFields = document.getElementsByName('user_message');
 
   const replaceInvalidName = (name) => {
-    return name.replace(/[^а-яА-Я\s]/g, '');
+    return name.replace(regExpName, '');
   };
 
   const replaceInvalidPhone = (phone) => {
-    return phone.replace(/[^+\d-\(\)]/g, '');
+    return phone.replace(regExpPhone, '');
   };
 
   const replaceInvalidEmail = (email) => {
-    return email.replace(/[^a-zA-Z0-9-_@\.!~\*']/g, '');
+    return email.replace(regExpEmail, '');
   };
 
   const replaceInvalidMessage = (message) => {
-    return message.replace(/[^а-яА-Я0-9-\.,!\?:;\(\)«»"\s]/g, '');
+    return message.replace(regExpMessage, '');
   };
 
   nameFields.forEach(field => {
@@ -46,4 +58,3 @@ const replace = () => {
 };
  
 export default replace;
-
