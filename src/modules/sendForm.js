@@ -15,9 +15,9 @@ const sendForm = ({ formId, someElem = [] }) => {
       const attribute = input.getAttribute('name').replace('user_', '');
       const value = input.value;
 
-      if (attribute === 'name' && value.match(regExpName) !== null) {
+      if (attribute === 'name' && (value.match(regExpName) !== null || value.length < 2)) {
         success = false;
-      } else if (attribute === 'phone' && value.match(regExpPhone) !== null) {
+      } else if (attribute === 'phone' && (value.match(regExpPhone) !== null || value.length < 6)) {
         success = false;
       } else if (attribute === 'email' && value.match(regExpEmail) !== null) {
         success = false;

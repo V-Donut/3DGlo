@@ -5,10 +5,6 @@ const modal = () => {
   const buttons = document.querySelectorAll('.popup-btn');
   const popupContent = modal.querySelector('.popup-content');
   const mobileWidth = 768;
-
-  const nameInput = modal.querySelector('#form3-name');
-  const phoneInput = modal.querySelector('#form3-phone');
-  const emailInput = modal.querySelector('#form3-email');
   
   let clientWidth = document.documentElement.clientWidth;
 
@@ -18,6 +14,7 @@ const modal = () => {
         popupContent.style.top = '-30%';
       }
       modal.style.display = 'block';
+      document.body.style.overflow = 'hidden';
 
       if (clientWidth >= mobileWidth) {
         animate({
@@ -36,6 +33,7 @@ const modal = () => {
   modal.addEventListener('click', (e) => {
     if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
       modal.style.display = 'none';
+      document.body.style.overflow = 'initial';
     }
   });
 };
