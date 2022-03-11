@@ -43,7 +43,7 @@ const calc = (price = 100) => {
     };
 
     const drawDown = (progress) => {
-      let value = Math.trunc((1 - progress) * (start - totalValue));
+      let value = Math.trunc((1 - progress) * start);
 
       if (value > totalValue) {
         total.textContent = value;
