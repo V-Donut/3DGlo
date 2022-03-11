@@ -19,4 +19,16 @@ const animate = ({timing, draw, duration}) => {
   });
 };
 
-export { animate };
+const getScrollWidth = () => {
+  let div = document.createElement('div');
+  div.style.width = '500px';
+  div.style.height = '500px';
+  div.style.overflowY = 'scroll';
+  div.style.visibility = 'hidden';
+  document.body.appendChild(div);
+  let scrollWidth = div.offsetWidth - div.clientWidth;
+  div.remove();
+  return scrollWidth;
+};
+
+export { animate, getScrollWidth };

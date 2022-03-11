@@ -1,4 +1,4 @@
-import { animate } from './helpers';
+import { animate, getScrollWidth } from './helpers';
 
 const modal = () => {
   const modal = document.querySelector('.popup');
@@ -8,13 +8,26 @@ const modal = () => {
   
   let clientWidth = document.documentElement.clientWidth;
 
+  const blockBody = () => {
+    const body = document.body;
+    body.style.overflow = 'hidden';
+    const bodyScroll = getScrollWidth();
+    body.style.marginRight = `${bodyScroll}px`;
+  };
+
+  const unBlockBody = () => {
+    const body = document.body;
+    body.style.overflow = 'auto';
+    body.style.marginRight = 0;
+  };
+
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
       if (clientWidth >= mobileWidth) {
         popupContent.style.top = '-30%';
       }
       modal.style.display = 'block';
-      document.body.style.overflow = 'hidden';
+      blockBody();
 
       if (clientWidth >= mobileWidth) {
         animate({
@@ -33,7 +46,7 @@ const modal = () => {
   modal.addEventListener('click', (e) => {
     if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
       modal.style.display = 'none';
-      document.body.style.overflow = 'initial';
+      unBlockBody();
     }
   });
 };
