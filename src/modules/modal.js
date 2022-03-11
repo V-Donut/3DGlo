@@ -1,4 +1,4 @@
-import { animate, getScrollWidth } from './helpers';
+import { animate, blockBody, unBlockBody } from './helpers';
 
 const modal = () => {
   const modal = document.querySelector('.popup');
@@ -7,19 +7,6 @@ const modal = () => {
   const mobileWidth = 768;
   
   let clientWidth = document.documentElement.clientWidth;
-
-  const blockBody = () => {
-    const body = document.body;
-    body.style.overflow = 'hidden';
-    const bodyScroll = getScrollWidth();
-    body.style.marginRight = `${bodyScroll}px`;
-  };
-
-  const unBlockBody = () => {
-    const body = document.body;
-    body.style.overflow = 'auto';
-    body.style.marginRight = 0;
-  };
 
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {

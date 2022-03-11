@@ -1,7 +1,9 @@
 import { regExpName, regExpPhone, regExpEmail, regExpMessage } from './replace.js';
+import { unBlockBody } from './helpers';
 
 const sendForm = ({ formId, someElem = [] }) => {
   const form = document.getElementById(formId);
+  const modal = document.querySelector('.popup');
   const statusBlock = document.createElement('div');
   statusBlock.style.color = '#19b5fe';
   const loadText = 'Загрузка...';
@@ -69,6 +71,12 @@ const sendForm = ({ formId, someElem = [] }) => {
           formElements.forEach(input => {
             input.value = '';
           });
+
+          setTimeout(() => {
+            statusBlock.textContent = '';
+            modal.style.display = 'none';
+            unBlockBody();
+          }, 4000);
         })
         .catch(error => {
           statusBlock.textContent = errorText;

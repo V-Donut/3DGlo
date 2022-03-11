@@ -31,4 +31,17 @@ const getScrollWidth = () => {
   return scrollWidth;
 };
 
-export { animate, getScrollWidth };
+const blockBody = () => {
+  const body = document.body;
+  body.style.overflow = 'hidden';
+  const bodyScroll = getScrollWidth();
+  body.style.marginRight = `${bodyScroll}px`;
+};
+
+const unBlockBody = () => {
+  const body = document.body;
+  body.style.overflow = 'auto';
+  body.style.marginRight = 0;
+};
+
+export { animate, getScrollWidth, blockBody, unBlockBody };
