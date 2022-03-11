@@ -7,6 +7,7 @@ const calc = (price = 100) => {
   const calcCount = calcBlock.querySelector('.calc-count');
   const calcDay = calcBlock.querySelector('.calc-day');
   const total = document.getElementById('total');
+  let lastResult = 0;
 
   const countCalc = () => {
     const calcTypeValue = +calcType.options[calcType.selectedIndex].value;
@@ -32,14 +33,31 @@ const calc = (price = 100) => {
       totalValue = 0;
     }
     
+    let start = lastResult;
+    lastResult = totalValue;
+
+    const drawUp = (progress) => {
+      if ((progress * totalValue) > start) {
+        total.textContent = Math.trunc(progress * totalValue);
+      }
+    };
+
+    const drawDown = (progress) => {
+      let value = Math.trunc((1 - progress) * (start - totalValue));
+
+      if (value > totalValue) {
+        total.textContent = value;
+      } else {
+        total.textContent = totalValue;
+      }
+    };
+
     animate({
       duration: 500,
       timing(timeFraction) {
         return timeFraction;
       },
-      draw(progress) {
-        total.textContent = Math.trunc(progress * totalValue);
-      }
+      draw: (totalValue > start) ? drawUp : drawDown
     });
   };
 
