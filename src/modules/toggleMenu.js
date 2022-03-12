@@ -16,7 +16,10 @@ const toggleMenu = () => {
       });
 
       handleMenu();
-    } else if (e.target.classList.contains('close-btn') || e.target.closest('.menu')) {
+    } else if (e.target.classList.contains('close-btn')) {
+      e.preventDefault();
+      handleMenu();
+    } else if (e.target.closest('.menu')) {
       handleMenu();
     } else if (menu.classList.contains('active-menu') && !e.target.closest('.active-menu')) {
       handleMenu();

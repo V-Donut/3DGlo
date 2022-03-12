@@ -15,13 +15,13 @@ const sendForm = ({ formId, someElem = [] }) => {
 
     list.forEach(input => {
       const attribute = input.getAttribute('name').replace('user_', '');
-      const value = input.value;
+      const value = input.value.trim();
 
       if (attribute === 'name' && (value.match(regExpName) !== null || value.length < 2)) {
         success = false;
       } else if (attribute === 'phone' && (value.match(regExpPhone) !== null || value.length < 6)) {
         success = false;
-      } else if (attribute === 'email' && value.match(regExpEmail) !== null) {
+      } else if (attribute === 'email' && (value.match(regExpEmail) !== null || !value)) {
         success = false;
       } else if (attribute === 'message' && value.match(regExpMessage) !== null) {
         success = false;
@@ -55,11 +55,12 @@ const sendForm = ({ formId, someElem = [] }) => {
 
     someElem.forEach(elem => {
       const element = document.getElementById(elem.id);
+      const forbiddenValues = ['', '0'];
 
-      if (elem.type === 'block') {
+      if (elem.type === 'block' && forbiddenValues.indexOf(element.textContent) === -1) {
         formBody[elem.id] = element.textContent;
-      } else if (elem.type === 'input') {
-        formBody[elem.id] = element.value;
+      } else if (elem.type === 'input' && forbiddenValues.indexOf(element.value) === -1) {
+        formBody[elem.id] = element.value;        
       }
     });
 

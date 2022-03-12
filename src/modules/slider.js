@@ -28,7 +28,7 @@ const slider = (selectors) => {
     const dotClass = dot.replace('.', '');
     for (let i = 0; i < dotsCount; i++) {
       let newElem = document.createElement('li');
-      newElem.className = (i === 0) ? (dotClass + ' ' + dotActive) : dotClass;
+      newElem.className = (i === 0) ? (dotClass + ' ' + dotActive.replace('.', '')) : dotClass;
       portfolioDots.append(newElem);
     }
     dots = document.querySelectorAll(dot);
