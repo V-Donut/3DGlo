@@ -6,10 +6,30 @@ const toggleMenu = () => {
   };
 
   document.addEventListener('click', (e) => {
-    if (e.target.classList.contains('close-btn') || e.target.matches('.active-menu ul>li>a') || e.target.closest('.menu')) {
+    if (e.target.matches('.active-menu ul>li>a')) {
+      e.preventDefault();
+
+      const link = e.target.getAttribute('href');
+      document.querySelector(link).scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
+
+      handleMenu();
+    } else if (e.target.classList.contains('close-btn')) {
+      e.preventDefault();
+      handleMenu();
+    } else if (e.target.closest('.menu')) {
       handleMenu();
     } else if (menu.classList.contains('active-menu') && !e.target.closest('.active-menu')) {
       handleMenu();
+    } else if (e.target.parentElement.getAttribute('href') === '#service-block') {
+      e.preventDefault();
+      
+      document.querySelector('#service-block').scrollIntoView({
+        behavior: 'smooth',
+        block: 'start'
+      });
     }
   });
 };

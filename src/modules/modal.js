@@ -1,15 +1,10 @@
-import { replaceInvalidText, replaceInvalidPhone, replaceInvalidEmail } from './replace';
-import { animate } from './helpers';
+import { animate, blockBody, unBlockBody } from './helpers';
 
 const modal = () => {
   const modal = document.querySelector('.popup');
   const buttons = document.querySelectorAll('.popup-btn');
   const popupContent = modal.querySelector('.popup-content');
   const mobileWidth = 768;
-
-  const nameInput = modal.querySelector('#form3-name');
-  const phoneInput = modal.querySelector('#form3-phone');
-  const emailInput = modal.querySelector('#form3-email');
   
   let clientWidth = document.documentElement.clientWidth;
 
@@ -19,6 +14,7 @@ const modal = () => {
         popupContent.style.top = '-30%';
       }
       modal.style.display = 'block';
+      blockBody();
 
       if (clientWidth >= mobileWidth) {
         animate({
@@ -37,19 +33,8 @@ const modal = () => {
   modal.addEventListener('click', (e) => {
     if (!e.target.closest('.popup-content') || e.target.classList.contains('popup-close')) {
       modal.style.display = 'none';
+      unBlockBody();
     }
-  });
-
-  nameInput.addEventListener('input', (e) => {
-    e.target.value = replaceInvalidText(e.target.value);
-  });
-
-  phoneInput.addEventListener('input', (e) => {
-    e.target.value = replaceInvalidPhone(e.target.value);
-  });
-
-  emailInput.addEventListener('input', (e) => {
-    e.target.value = replaceInvalidEmail(e.target.value);
   });
 };
 
